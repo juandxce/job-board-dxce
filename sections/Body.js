@@ -13,8 +13,8 @@ function Body() {
   }, [state.searchValue]);
   return (
     <div className="bg-white p-6">
-      <div className="grid grid-cols-8 gap-4">
-        <div className="col-span-2">
+      <div className="grid grid-cols-8 gap-4 my-2">
+        <div className="col-span-full lg:col-span-2">
           <span className="font-semibold">
             {state.jobPostings.reduce(
               (acc, jopbpost) => jopbpost.items?.length + acc,
@@ -23,8 +23,8 @@ function Body() {
           </span>{" "}
           Job postings
         </div>
-        <div className="col-span-5 col-start-4">
-          <span className="m-1.5 text-gray-400">Sort by</span>
+        <div className="col-span-full hidden md:block lg:col-span-5 lg:col-start-4">
+          <span className="m-1.5 text-gray-400 block">Sort by</span>
           <span className="m-1.5 cursor-pointer hover:underline">Location</span>
           <span className="m-1.5 cursor-pointer hover:underline">Role</span>
           <span className="m-1.5 cursor-pointer hover:underline">

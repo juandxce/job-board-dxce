@@ -18,6 +18,9 @@ const StateProvider = ({ children }) => {
             case 'SET_FILTERS':
                 newState = { ...state, filters: action.payload }
                 return newState;
+            case 'SET_NAV_MENU_OPEN':
+                newState = { ...state, navMenuIsOpen: action.payload }
+                return newState;
             default:
                 return newState;
         };

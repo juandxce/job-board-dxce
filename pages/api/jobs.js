@@ -15,9 +15,12 @@ export default async (req, res) => {
       const newJob = { ...job };
       const newJobItems = job.items.filter(
         (jobPosting) =>
-          Object.keys(filters).every(
-            (filterKey) => jobPosting[filterKey] === filters[filterKey]
-          ) // match ALL the selected filters
+          Object.keys(filters).every((filterKey) => {
+            if (filterKey !== "department") {
+              jobPosting[filterKey] === filters[filterKey];
+            }
+            return jobPosting[filterKey].includes(filters[filterKey]);
+          }) // match ALL the selected filters
       );
       newJob.items = newJobItems;
       return newJob;

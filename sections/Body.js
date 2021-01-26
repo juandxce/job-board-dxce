@@ -4,19 +4,19 @@ import { getJobs } from "../api/globalAPI";
 
 function Body() {
   const { dispatch, state } = useContext(store);
-  const handleJobsFetch = async (searchVal) => {
-    const result = await getJobs(searchVal);
-    dispatch({ type: "SET_JOB_POSTINGS", payload: result.jobs });
+  const handleJobsFetch = async (searchVal, filters) => {
+    const result = await getJobs(searchVal, filters);
+    dispatch({ type: "SET_JOB_POSTINGS", payload: result?.jobs });
   };
   useEffect(() => {
-    handleJobsFetch(state.searchValue);
-  }, [state.searchValue]);
+    handleJobsFetch(state.searchValue, state.selectedFilters);
+  }, [state.searchValue, state.selectedFilters]);
   return (
     <div className="bg-white p-6">
       <div className="grid grid-cols-8 gap-4 my-2">
         <div className="col-span-full lg:col-span-2">
           <span className="font-semibold">
-            {state.jobPostings.reduce(
+            {state.jobPostings?.reduce(
               (acc, jopbpost) => jopbpost.items?.length + acc,
               0
             )}
@@ -24,7 +24,7 @@ function Body() {
           Job postings
         </div>
         <div className="col-span-full hidden md:block lg:col-span-5 lg:col-start-4">
-          <span className="m-1.5 text-gray-400 block">Sort by</span>
+          <span className="m-1.5 text-gray-400 block md:inline-block">Sort by</span>
           <span className="m-1.5 cursor-pointer hover:underline">Location</span>
           <span className="m-1.5 cursor-pointer hover:underline">Role</span>
           <span className="m-1.5 cursor-pointer hover:underline">
@@ -39,10 +39,10 @@ function Body() {
         </div>
       </div>
       <div>
-        {state.jobPostings.map((post) => (
-          <div>
+        {state.jobPostings.map((post, index) => (
+          <div key={index}>
             <div>
-              {post.total_jobs_in_hospital} jobs for {post.name}
+              {post.items.length} jobs for {post.name}
             </div>
             <div className="divide-y divide-gray-200">
               {post.items?.map((item) => (

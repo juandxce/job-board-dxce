@@ -1,4 +1,4 @@
-const URL = "http://localhost:3000";
+const URL = rocess.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
 async function getJobs(searchStr = "", filters = {}) {
   try {

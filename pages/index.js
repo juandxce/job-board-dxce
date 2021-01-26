@@ -11,10 +11,10 @@ const Index = () => {
     <StateProvider>
       <div className="max-w-7xl mx-auto px-4 sm:px-6" style={{ background: "#eee" }}>
         <div className="grid grid-cols-4 gap-4">
-          <div className="col-span-4">
+          <div className="col-span-full">
             <Navbar />
           </div>
-          <div className="col-span-4">
+          <div className="col-span-full">
             <Search />
           </div>
           <div className="col-span-1">

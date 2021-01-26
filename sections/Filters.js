@@ -4,7 +4,6 @@ import { getFilters } from "../api/globalAPI"
 
 function Filters(props) {
     const { dispatch, state } = useContext(store);
-    console.log('globalState,', state);
 
     const handleFetchFilters = async () => {
         const result = await getFilters();
@@ -14,29 +13,29 @@ function Filters(props) {
         handleFetchFilters()
     }, [])
     return (
-        <div>
-            <div className="bg-white p-2">
-                <h3 className="font-bold">JOB TYPE</h3>
+        <div className="grid grid-cols-1 gap-4">
+            <div className="bg-white p-2 col-span-full">
+                <h3 className="font-semibold">JOB TYPE</h3>
                 <div>
-                    {state.filters["job_type"]?.map(filter => <div>{filter.key} - {filter.doc_count}</div>)}
+                    {state.filters["job_type"]?.map(filter => <div className="cursor-pointer hover:underline">{filter.key} - <span className="text-gray-400">{filter.doc_count}</span></div>)}
+                </div>
+            </div>
+            <div className="bg-white p-2 gap-4">
+                <h3 className="font-semibold">DEPARTMENT</h3>
+                <div>
+                    {state.filters["department"]?.map(filter => <div className="cursor-pointer hover:underline">{filter.key} - <span className="text-gray-400">{filter.doc_count}</span></div>)}
                 </div>
             </div>
             <div className="bg-white p-2">
-                <h3 className="font-bold">JOB TYPE</h3>
+                <h3 className="font-semibold">WORK SCHEDULE</h3>
                 <div>
-                    {state.filters["department"]?.map(filter => <div>{filter.key} - {filter.doc_count}</div>)}
+                    {state.filters["work_schedule"]?.map(filter => <div className="cursor-pointer hover:underline">{filter.key} - <span className="text-gray-400">{filter.doc_count}</span></div>)}
                 </div>
             </div>
             <div className="bg-white p-2">
-                <h3 className="font-bold">JOB TYPE</h3>
+                <h3 className="font-semibold">EXPERIENCE</h3>
                 <div>
-                    {state.filters["work_schedule"]?.map(filter => <div>{filter.key} - {filter.doc_count}</div>)}
-                </div>
-            </div>
-            <div className="bg-white p-2">
-                <h3 className="font-bold">JOB TYPE</h3>
-                <div>
-                    {state.filters["experience"]?.map(filter => <div>{filter.key} - {filter.doc_count}</div>)}
+                    {state.filters["experience"]?.map(filter => <div className="cursor-pointer hover:underline">{filter.key} - <span className="text-gray-400">{filter.doc_count}</span></div>)}
                 </div>
             </div>
         </div>

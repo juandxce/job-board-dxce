@@ -9,6 +9,9 @@ export default async (req, res) => {
   // you need to figure out how to guarantee that client side will render
   // correct results even if server-side can't finish replies in the right order
   await new Promise((resolve) => setTimeout(resolve, 1000 * Math.random()))
+  const { searchStr } = req.body;
 
-  res.json({jobs: jobs})
+  res.json({
+    jobs: jobs.filter(job => JSON.stringify(job).toLowerCase().includes(searchStr.toLowerCase())) // easy to implement, 'bad' performance.
+  })
 }

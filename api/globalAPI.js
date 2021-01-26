@@ -2,7 +2,7 @@ import config from '../config'
 
 async function getJobs(searchStr = "", filters = {}) {
   try {
-    const result = await fetch(`${config.apiurl}/api/jobs`, {
+    const result = await fetch(`http://${config.apiurl}/api/jobs`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ searchStr, filters }),
@@ -16,7 +16,7 @@ async function getJobs(searchStr = "", filters = {}) {
 
 async function getFilters() {
   try {
-    const result = await fetch(`${config.apiurl}/api/filters`);
+    const result = await fetch(`http://${config.apiurl}/api/filters`);
     const response = await result.json();
     return response;
   } catch (err) {

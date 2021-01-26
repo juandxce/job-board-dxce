@@ -5,6 +5,7 @@ import Search from "../sections/Search";
 import Filters from "../sections/Filters";
 import Body from "../sections/Body";
 import Footer from "../sections/Footer";
+import Modal from "../sections/Modal"
 
 const Index = () => {
   return (
@@ -29,6 +30,7 @@ const Index = () => {
         </div>
       </div>
       <Footer />
+      <Modal />
     </StateProvider>
   );
 };

@@ -42,7 +42,7 @@ function Body() {
         {state.jobPostings.map((post, index) => (
           <div key={index}>
             <div>
-              {post.items.length} jobs for {post.name}
+              <span className="bg-gray-500 text-white px-3 py-2 rounded">{post.items.length}</span> jobs for {post.name}
             </div>
             <div className="divide-y divide-gray-200">
               {post.items?.map((item) => (

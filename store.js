@@ -21,6 +21,9 @@ const StateProvider = ({ children }) => {
       case "SET_NAV_MENU_OPEN":
         newState = { ...state, navMenuIsOpen: action.payload };
         return newState;
+      case "SET_MODAL_IS_OPEN":
+        newState = { ...state, modalIsOpen: action.payload };
+        return newState;
       case "SELECT_USER_FILTERS":
         const newFilters = { ...state.selectedFilters };
         if(newFilters[action.payload.key] === action.payload.value) {

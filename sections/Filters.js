@@ -40,24 +40,36 @@ function Filters(props) {
       <div className="bg-white p-2 gap-4">
         <h3 className="font-semibold">DEPARTMENT</h3>
         <div>
-          {state.filters["department"]?.map((filter) => (
-            <button
-              type="button"
-              className={`${
-                state.selectedFilters?.department === filter.key &&
-                "text-blue-500"
-              } text-left block cursor-pointer hover:underline`}
-              onClick={() =>
-                dispatch({
-                  type: "SELECT_USER_FILTERS",
-                  payload: { key: "department", value: filter.key },
-                })
-              }
-            >
-              {filter.key} -{" "}
-              <span className="text-gray-400">{filter.doc_count}</span>
-            </button>
-          ))}
+          {state.filters["department"]?.map(
+            (filter, index) =>
+              (index < 10 && (
+                <button
+                  type="button"
+                  className={`${
+                    state.selectedFilters?.department === filter.key &&
+                    "text-blue-500"
+                  } text-left block cursor-pointer hover:underline`}
+                  onClick={() =>
+                    dispatch({
+                      type: "SELECT_USER_FILTERS",
+                      payload: { key: "department", value: filter.key },
+                    })
+                  }
+                >
+                  {filter.key} -{" "}
+                  <span className="text-gray-400">{filter.doc_count}</span>
+                </button>
+              )) ||
+              null
+          )}
+          <div
+            onClick={() =>
+              dispatch({ type: "SET_MODAL_IS_OPEN", payload: true })
+            }
+            className="text-purple-500 pt-4 cursor-pointer"
+          >
+            Show more...
+          </div>
         </div>
       </div>
       <div className="bg-white p-2">
@@ -67,7 +79,8 @@ function Filters(props) {
             <button
               type="button"
               className={`${
-                state.selectedFilters?.work_schedule === filter.key && "text-blue-500"
+                state.selectedFilters?.work_schedule === filter.key &&
+                "text-blue-500"
               } text-left block cursor-pointer hover:underline`}
               onClick={() =>
                 dispatch({
@@ -89,7 +102,8 @@ function Filters(props) {
             <button
               type="button"
               className={`${
-                state.selectedFilters?.experience === filter.key && "text-blue-500"
+                state.selectedFilters?.experience === filter.key &&
+                "text-blue-500"
               } text-left block cursor-pointer hover:underline`}
               onClick={() =>
                 dispatch({

@@ -6,7 +6,9 @@ function Modal() {
   const { modalIsOpen } = state;
   return (
     <div
-      className={`${!modalIsOpen && "hidden"} fixed z-10 inset-0 overflow-y-auto`}
+      className={`${
+        !modalIsOpen && "hidden"
+      } fixed z-10 inset-0 overflow-y-auto`}
     >
       <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div className="fixed inset-0 transition-opacity">
@@ -37,11 +39,12 @@ function Modal() {
                   Department
                 </h3>
                 <div className="mt-2">
-                  <div classNameName="grid grid-cols-1 md:grid-cols-4">
-                    {state.filters["department"]?.map((filter) => (
+                  <div className="grid grid-cols-1 md:grid-cols-4">
+                    {state.filters["department"]?.map((filter, index) => (
                       <button
+                        key={index}
                         type="button"
-                        classNameName={`${
+                        className={`${
                           state.selectedFilters?.department === filter.key &&
                           "text-blue-500"
                         } text-left block cursor-pointer hover:underline col-span-1`}
@@ -53,7 +56,7 @@ function Modal() {
                         }
                       >
                         {filter.key} -{" "}
-                        <span classNameName="text-gray-400">
+                        <span className="text-gray-400">
                           {filter.doc_count}
                         </span>
                       </button>

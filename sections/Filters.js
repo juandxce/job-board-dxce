@@ -7,7 +7,7 @@ function Filters(props) {
 
   const handleFetchFilters = async () => {
     const result = await getFilters();
-    dispatch({ type: "SET_FILTERS", payload: result });
+    dispatch({ type: "SET_FILTERS", payload: result || {} });
   };
   useEffect(() => {
     handleFetchFilters();
@@ -17,9 +17,10 @@ function Filters(props) {
       <div className="bg-white p-2 col-span-full">
         <h3 className="font-semibold">JOB TYPE</h3>
         <div>
-          {state.filters["job_type"]?.map((filter) => (
+          {state.filters["job_type"]?.map((filter, index) => (
             <button
               type="button"
+              key={index}
               className={`${
                 state.selectedFilters?.job_type === filter.key &&
                 "text-blue-500"
@@ -44,6 +45,7 @@ function Filters(props) {
             (filter, index) =>
               (index < 10 && (
                 <button
+                  key={index}
                   type="button"
                   className={`${
                     state.selectedFilters?.department === filter.key &&
@@ -75,9 +77,10 @@ function Filters(props) {
       <div className="bg-white p-2">
         <h3 className="font-semibold">WORK SCHEDULE</h3>
         <div>
-          {state.filters["work_schedule"]?.map((filter) => (
+          {state.filters["work_schedule"]?.map((filter, index) => (
             <button
               type="button"
+              key={index}
               className={`${
                 state.selectedFilters?.work_schedule === filter.key &&
                 "text-blue-500"
@@ -98,9 +101,10 @@ function Filters(props) {
       <div className="bg-white p-2">
         <h3 className="font-semibold">EXPERIENCE</h3>
         <div>
-          {state.filters["experience"]?.map((filter) => (
+          {state.filters["experience"]?.map((filter, index) => (
             <button
               type="button"
+              key={index}
               className={`${
                 state.selectedFilters?.experience === filter.key &&
                 "text-blue-500"

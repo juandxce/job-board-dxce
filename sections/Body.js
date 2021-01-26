@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { store } from "../store";
 import { getJobs } from "../api/globalAPI";
+import { isEqual } from "underscore";
 
 function Body() {
   const { dispatch, state } = useContext(store);
@@ -24,7 +25,9 @@ function Body() {
           Job postings
         </div>
         <div className="col-span-full hidden md:block lg:col-span-5 lg:col-start-4">
-          <span className="m-1.5 text-gray-400 block md:inline-block">Sort by</span>
+          <span className="m-1.5 text-gray-400 block md:inline-block">
+            Sort by
+          </span>
           <span className="m-1.5 cursor-pointer hover:underline">Location</span>
           <span className="m-1.5 cursor-pointer hover:underline">Role</span>
           <span className="m-1.5 cursor-pointer hover:underline">
@@ -42,15 +45,48 @@ function Body() {
         {state.jobPostings.map((post, index) => (
           <div key={index}>
             <div>
-              <span className="bg-gray-500 text-white px-3 py-2 rounded">{post.items.length}</span> jobs for {post.name}
+              <span className="bg-gray-500 text-white px-3 py-2 rounded">
+                {post.items.length}
+              </span>{" "}
+              jobs for {post.name}
             </div>
             <div className="divide-y divide-gray-200">
-              {post.items?.map((item) => (
-                <div className="p-2 ">
+              {post.items?.map((item, postIndex) => (
+                <div className="p-2" key={postIndex}>
                   <div className="font-semibold">{item.job_title}</div>
                   <div>
                     {item.job_type} | {item.salary_range[0]} -{" "}
                     {item.salary_range[1]} | {item.city}
+                  </div>
+                  <div
+                    className={`${
+                      isEqual(item, state.selectedItem) && "block"
+                    }  grid md:grid-cols-4 grid-cols-3 relative pb-12 md:pb-2`}
+                  >
+                    <div className="col-span-1 font-bold">Department:</div>
+                    <div className="col-span-2 md:col-start-2 md:col-end-4 md:col-span-3">
+                      {item.department.reduce((acc, val, idx) => {
+                        if (idx !== item.department.length - 1) {
+                          return (acc += `${val}, `);
+                        }
+                        return (acc += `${val}.`);
+                      }, "")}
+                    </div>
+
+                    <div className="col-span-1 font-bold md:col-span-1 md:col-start-1 md:col-end-2">Hours / Shifts:</div>
+                    <div className="col-span-2 md:col-start-2 md:col-end-4">
+                      {item.hours[0]} / {item.work_schedule}
+                    </div>
+                    <div className="col-span-1 font-bold md:col-span-1 md:col-start-1 md:col-end-2">Summary</div>
+                    <div className="col-span-2 md:col-span-2 md:col-start-2 md:col-end-4">
+                      {item.description}
+                    </div>
+                    <button className="p-1 absolute bottom-0  left-20 border-2 border-blue-500 left-0 bg-blue-500 text-white font-light md:bottom-32 md:right-2 md:left-auto rounded">
+                      Job details
+                    </button>
+                    <button className="p-1 absolute bottom-0 left-48 text-blue-500 border-2 border-blue-500 font-light md:bottom-12 md:right-2 md:left-auto rounded">
+                      Save job
+                    </button>
                   </div>
                 </div>
               ))}

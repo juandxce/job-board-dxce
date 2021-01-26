@@ -43,16 +43,46 @@ function Body() {
       </div>
       <div>
         {state.jobPostings.map((post, index) => (
-          <div key={index}>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              if (isEqual(post, state.selectedJobPosting)) {
+                return dispatch({
+                  type: "SET_SELECTED_JOB_POSTING",
+                  payload: {},
+                });
+              }
+              dispatch({ type: "SET_SELECTED_JOB_POSTING", payload: post });
+            }}
+            key={index}
+            className="m-3 cursor-pointer hover:bg-gray-50 p-2"
+          >
             <div>
-              <span className="bg-gray-500 text-white px-3 py-2 rounded">
-                {post.items.length}
+              <span className="bg-gray-500 text-white px-3 py-2 rounded h-10	w-10 inline-flex self-center text-center font-bold justify-self-center">
+                {post.name.substring(0, 2)}
               </span>{" "}
-              jobs for {post.name}
+              {post.items.length} jobs for {post.name}
             </div>
-            <div className="divide-y divide-gray-200">
+            <div
+              className={`${
+                !isEqual(post, state.selectedJobPosting) && "hidden"
+              } block divide-y divide-gray-200`}
+            >
               {post.items?.map((item, postIndex) => (
-                <div className="p-2" key={postIndex}>
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (isEqual(post, state.selectedItem)) {
+                      return dispatch({
+                        type: "SET_SELECTED_ITEM",
+                        payload: {},
+                      });
+                    }
+                    dispatch({ type: "SET_SELECTED_ITEM", payload: item });
+                  }}
+                  className="p-2 cursor-pointer"
+                  key={postIndex}
+                >
                   <div className="font-semibold">{item.job_title}</div>
                   <div>
                     {item.job_type} | {item.salary_range[0]} -{" "}
@@ -60,8 +90,8 @@ function Body() {
                   </div>
                   <div
                     className={`${
-                      isEqual(item, state.selectedItem) && "block"
-                    }  grid md:grid-cols-4 grid-cols-3 relative pb-12 md:pb-2`}
+                      !isEqual(item, state.selectedItem) && "hidden"
+                    } block grid md:grid-cols-4 grid-cols-3 relative pb-12 md:pb-2`}
                   >
                     <div className="col-span-1 font-bold">Department:</div>
                     <div className="col-span-2 md:col-start-2 md:col-end-4 md:col-span-3">
@@ -73,11 +103,15 @@ function Body() {
                       }, "")}
                     </div>
 
-                    <div className="col-span-1 font-bold md:col-span-1 md:col-start-1 md:col-end-2">Hours / Shifts:</div>
+                    <div className="col-span-1 font-bold md:col-span-1 md:col-start-1 md:col-end-2">
+                      Hours / Shifts:
+                    </div>
                     <div className="col-span-2 md:col-start-2 md:col-end-4">
                       {item.hours[0]} / {item.work_schedule}
                     </div>
-                    <div className="col-span-1 font-bold md:col-span-1 md:col-start-1 md:col-end-2">Summary</div>
+                    <div className="col-span-1 font-bold md:col-span-1 md:col-start-1 md:col-end-2">
+                      Summary
+                    </div>
                     <div className="col-span-2 md:col-span-2 md:col-start-2 md:col-end-4">
                       {item.description}
                     </div>

@@ -24,6 +24,12 @@ const StateProvider = ({ children }) => {
       case "SET_MODAL_IS_OPEN":
         newState = { ...state, modalIsOpen: action.payload };
         return newState;
+      case "SET_SELECTED_ITEM":
+        newState = { ...state, selectedItem: action.payload };
+        return newState;
+      case "SET_SELECTED_JOB_POSTING":
+        newState = { ...state, selectedJobPosting: action.payload };
+        return newState;
       case "SELECT_USER_FILTERS":
         const newFilters = { ...state.selectedFilters };
         if(newFilters[action.payload.key] === action.payload.value) {
